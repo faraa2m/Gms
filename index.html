@@ -21,6 +21,7 @@
 	var dx = 2;
 	var dy = -2;
 	var ballRadius = 10;
+	var ballSpeed = 10;
 	var paddleHeight = 10;
 	var paddleWidth = 75;
 	var paddleX = (canvas.width-paddleWidth)/2;
@@ -41,25 +42,26 @@
 
 	var bricks = [];
 	for(c=0; c<brickColumnCount; c++) {
-    	bricks[c] = [];
-    	for(r=0; r<brickRowCount; r++) {
+    	    bricks[c] = [];
+    	    for(r=0; r<brickRowCount; r++) {
         	bricks[c][r] = { x: 0, y: 0, status: 1 };
-    	}
+    	    }
 	}
 
 	function mouseMoveHandler(e) {
-    	var relativeX = e.clientX - canvas.offsetLeft;
-    	if(relativeX > 0 && relativeX < canvas.width) {
+    	    var relativeX = e.clientX - canvas.offsetLeft;
+    	    if(relativeX > 0 && relativeX < canvas.width) {
         	paddleX = relativeX - paddleWidth/2;
-    	}
+    	    }
 	}
+
 	function keyDownHandler(e){
-		if(e.keyCode==39){
-			rightPressed=true;
-		}
-		else if(e.keyCode==37){
-			leftPressed=true;
-		}
+	    if(e.keyCode==39){
+		rightPressed=true;
+	    }
+	    else if(e.keyCode==37){
+		leftPressed=true;
+	    }
 	}
 	
 	function keyUpHandler(e){
@@ -76,7 +78,7 @@
 		ctx.arc(x,y,ballRadius,0,2*Math.PI);
 		ctx.fillstyle="#7FFF00";
 		ctx.fillStroke="#7FFF00";
-		ctx.Stroke="10"
+		ctx.Stroke= ballSpeed;
 		ctx.fill();
 		ctx.closePath();
 	}
@@ -166,8 +168,13 @@
 		x=x+dx;
 	    y=y+dy;
 	}
+		
+	function speedup() {
+	   ballSpeed *= 1.25;
+	}
 
 	setInterval(draw,10);
+	setInterval(speedup, 100000);
 
 	</script>
 </body>
